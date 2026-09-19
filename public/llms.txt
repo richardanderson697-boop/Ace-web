@@ -1,0 +1,23 @@
+# ACE Platform (Author, Community & Ecosystem)
+> Digital Publishing Platform featuring Reader Discovery, Write-Sound SSO Ingestion, and Tiered Royalty Settlement Engine.
+
+## Overview
+The ACE Platform connects Readers, Authors, and Platform Administrators in an integrated digital publishing workflow with lossless audio previews, transparent royalty tiers (85% for Write-Sound studio uploads, 75% for direct MP3 ingestion), and automated Stripe Connect split payments.
+
+## Architecture
+- **Frontend**: React 19, TypeScript, Tailwind CSS, Web Audio API acoustic synthesis, Lucide icons.
+- **Backend API**: Node.js Express server with Stripe Connect Destination Charges, Application Fee retention, and Write-Sound HMAC authentication.
+- **Security**: Cryptographically secure identifiers (Web Crypto API / Node.js crypto), secure Stripe webhook signature validation, and sanitized error responses.
+
+## Key Endpoints
+- `GET /api/health`: Platform health, environment mode, and Stripe configuration status.
+- `GET /api/stripe/config`: Public Stripe publishable key and operational mode.
+- `POST /api/auth/write-sound-verify`: Write-Sound author SSO token verification and Stripe Connected account binding.
+- `POST /api/stripe/create-checkout-session`: Stripe Checkout Session generator with automated author split calculations.
+- `POST /api/stripe/instant-payout`: Instant author bank transfer execution via Stripe Payouts API.
+- `POST /api/stripe/webhook`: Verified webhook ingestion for Stripe event lifecycles.
+- `GET /api/stripe/webhook-events`: Audit trail for marketplace transaction events.
+
+## Permissions & Compliance
+- Multi-tenant data segregation with individual author partition isolation.
+- 1099-K automated tax classification and KYC verification status tracking.

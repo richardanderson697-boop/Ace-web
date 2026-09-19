@@ -12,6 +12,7 @@ import {
   INITIAL_CUSTOMER_MESSAGES, 
   INITIAL_AUTHOR_TELEMETRY 
 } from './data/mockData';
+import { generateSecureOrderNumber, generateSecureDrmToken } from './utils/cryptoUtils';
 import { Navbar } from './components/Navbar';
 import { ReaderPortal } from './components/ReaderPortal/ReaderPortal';
 import { AuthorWorkspace } from './components/AuthorPortal/AuthorWorkspace';
@@ -142,7 +143,7 @@ export default function App() {
         return {
           ...ord,
           deliveryStatus: 'Delivered',
-          drmToken: `DRM-WH-85-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+          drmToken: generateSecureDrmToken('WH-85')
         };
       }
       return ord;
@@ -208,7 +209,7 @@ export default function App() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-36">
+      <main id="main-content" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-36">
         {currentRole === 'reader' && (
           <ReaderPortal
             books={books}
@@ -254,7 +255,7 @@ export default function App() {
             // Quick trigger purchase
             handleCompleteOrder({
               id: `ord-${Date.now()}`,
-              orderNumber: `ACE-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+              orderNumber: generateSecureOrderNumber(),
               bookId: book.id,
               bookTitle: book.title,
               bookCover: book.coverImage,
@@ -266,7 +267,7 @@ export default function App() {
               creatorEarnings: book.priceAudio * (book.royaltyTier === 'writesound_bridge' ? 0.85 : 0.75),
               platformFee: book.priceAudio * (book.royaltyTier === 'writesound_bridge' ? 0.15 : 0.25),
               deliveryStatus: 'Delivered',
-              drmToken: `DRM-${book.royaltyTier === 'writesound_bridge' ? 'WH-85' : 'SD-75'}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
+              drmToken: generateSecureDrmToken(book.royaltyTier === 'writesound_bridge' ? 'WH-85' : 'SD-75'),
               date: new Date().toISOString().replace('T', ' ').substring(0, 16)
             });
             setIsLibraryOpen(true);

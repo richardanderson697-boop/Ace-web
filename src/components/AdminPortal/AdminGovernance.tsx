@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { RoyaltyTier, SettlementBatch, ComplianceReviewItem } from '../../types';
 import { ROYALTY_TIERS, INITIAL_SETTLEMENTS, INITIAL_COMPLIANCE_ITEMS } from '../../data/mockData';
+import { generateSecureOrderNumber } from '../../utils/cryptoUtils';
 
 interface AdminGovernanceProps {
   // Can pass any needed global states or callback handlers
@@ -45,7 +46,7 @@ export const AdminGovernance: React.FC<AdminGovernanceProps> = () => {
     setIsExecutingBatch(true);
     setTimeout(() => {
       const newBatch: SettlementBatch = {
-        batchId: `SETTLE-2026-${Math.floor(100 + Math.random() * 900)}`,
+        batchId: generateSecureOrderNumber().replace('ACE', 'SETTLE'),
         period: 'Current Bi-Weekly Cycle',
         totalAuthors: 174,
         grossSettlement: 146800.00,
