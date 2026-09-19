@@ -1,0 +1,6 @@
+{
+  "name": "ACE Platform",
+  "description": "Author, Community & Ecosystem platform with Reader discovery & audio previews, Author direct publishing & Write-Sound bridge, and Admin tiered royalty settlements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
